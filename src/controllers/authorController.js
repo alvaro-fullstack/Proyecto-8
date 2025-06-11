@@ -1,5 +1,66 @@
-const getAll = (req, res) => {
-    // Implement your logic here
-}
+const Author = require('../models/authorModel');
 
-module.exports = { getAll }
+exports.getAllAuthors = async (req, res) => {
+  try {
+    const authors = await Author.getAll();
+    res.json(authors);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getAuthorById = async (req, res) => {
+  try {
+    const author = await Author.getById(req.params.id);
+    if (!author) {
+      return res.status(404).json({ error: 'Author not found' });
+    }
+    res.json(author);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.createAuthor = async (req, res) => {
+  try {
+    const { name, email, image } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({ error: 'Name and email are required' });
+    }
+    const newAuthor = await Author.create({ name, email, image });
+    res.status(201).json(newAuthor);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateAuthor = async (req, res) => {
+  try {
+    const { name, email, image } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({ error: 'Name and email are required' });
+    }
+    const updatedAuthor = await Author.update(req.params.id, { name, email, image });
+    res.json(updatedAuthor);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteAuthor = async (req, res) => {
+  try {
+    await Author.delete(req.params.id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getPostsByAuthor = async (req, res) => {
+  try {
+    const posts = await Author.getPostsByAuthor(req.params.id);
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
