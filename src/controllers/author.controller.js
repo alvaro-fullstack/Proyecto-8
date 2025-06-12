@@ -1,6 +1,6 @@
 const Author = require('../models/author.model');
 
-exports.getAllAuthors = async (req, res) => {
+const getAllAuthors = async (req, res) => {
   try {
     const authors = await Author.getAll();
     res.json(authors);
@@ -9,7 +9,7 @@ exports.getAllAuthors = async (req, res) => {
   }
 };
 
-exports.getAuthorById = async (req, res) => {
+const getAuthorById = async (req, res) => {
   try {
     const author = await Author.getById(req.params.id);
     if (!author) {
@@ -21,7 +21,7 @@ exports.getAuthorById = async (req, res) => {
   }
 };
 
-exports.createAuthor = async (req, res) => {
+const createAuthor = async (req, res) => {
   try {
     const { name, email, image } = req.body;
     if (!name || !email) {
@@ -34,7 +34,7 @@ exports.createAuthor = async (req, res) => {
   }
 };
 
-exports.updateAuthor = async (req, res) => {
+const updateAuthor = async (req, res) => {
   try {
     const { name, email, image } = req.body;
     if (!name || !email) {
@@ -47,7 +47,7 @@ exports.updateAuthor = async (req, res) => {
   }
 };
 
-exports.deleteAuthor = async (req, res) => {
+const deleteAuthor = async (req, res) => {
   try {
     await Author.delete(req.params.id);
     res.status(204).send();
@@ -56,11 +56,14 @@ exports.deleteAuthor = async (req, res) => {
   }
 };
 
-exports.getPostsByAuthor = async (req, res) => {
+const getPostsByAuthor = async (req, res) => {
   try {
     const posts = await Author.getPostsByAuthor(req.params.id);
     res.json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+module.exports = {getAllAuthors,getAuthorById,createAuthor,updateAuthor,deleteAuthor,getPostsByAuthor
 };

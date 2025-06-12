@@ -1,6 +1,6 @@
 const Post = require('../models/post.model');
 
-exports.getAllPosts = async (req, res) => {
+const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.getAll();
     res.json(posts);
@@ -9,7 +9,7 @@ exports.getAllPosts = async (req, res) => {
   }
 };
 
-exports.getPostById = async (req, res) => {
+const getPostById = async (req, res) => {
   try {
     const post = await Post.getById(req.params.id);
     if (!post) {
@@ -21,7 +21,7 @@ exports.getPostById = async (req, res) => {
   }
 };
 
-exports.createPost = async (req, res) => {
+const createPost = async (req, res) => {
   try {
     const { title, description, category, author_id } = req.body;
     if (!title || !description || !category || !author_id) {
@@ -34,7 +34,7 @@ exports.createPost = async (req, res) => {
   }
 };
 
-exports.updatePost = async (req, res) => {
+const updatePost = async (req, res) => {
   try {
     const { title, description, category, author_id } = req.body;
     if (!title || !description || !category || !author_id) {
@@ -47,7 +47,7 @@ exports.updatePost = async (req, res) => {
   }
 };
 
-exports.deletePost = async (req, res) => {
+const deletePost = async (req, res) => {
   try {
     await Post.delete(req.params.id);
     res.status(204).send();
@@ -56,11 +56,14 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-exports.getPostsByCategory = async (req, res) => {
+const getPostsByCategory = async (req, res) => {
   try {
     const posts = await Post.getByCategory(req.params.category);
     res.json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+module.exports = {getAllPosts,getPostById,createPost,updatePost,deletePost,getPostsByCategory
 };

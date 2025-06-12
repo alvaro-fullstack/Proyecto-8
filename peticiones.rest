@@ -41,7 +41,7 @@ GET {{baseUrl}}/author
 GET {{baseUrl}}/author/4
 
 ### 4. Crear Posts
-POST {{baseUrl}}/posts
+POST {{baseUrl}}/post
 Content-Type: {{contentType}}
 
 {
@@ -84,7 +84,7 @@ Content-Type: {{contentType}}
   "title": "ExpressJS avanzado",
   "description": "Técnicas avanzadas para desarrollar APIs con ExpressJS.",
   "category": "Tecnología",
-  "author_id": 1
+  "author_id": 4
 }
 
 ### 5. Obtener todos los posts
@@ -104,14 +104,14 @@ PUT {{baseUrl}}/post/1
 Content-Type: {{contentType}}
 
 {
-  "title": "Introducción a Node.js (Actualizado)",
+  "title": "Introducción a Node.jsss (Actualizado)",
   "description": "Aprende los fundamentos de Node.js y cómo empezar. Nueva información añadida.",
   "category": "Tecnología",
-  "author_id": 1
+  "author_id": 2
 }
 
 ### 10. Eliminar un post
-DELETE {{baseUrl}}/post/4
+DELETE {{baseUrl}}/post/1
 
 ### 11. Actualizar un autor
 PUT {{baseUrl}}/author/2
